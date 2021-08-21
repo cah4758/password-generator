@@ -3,9 +3,9 @@ var generateBtn = document.querySelector("#generate");
 var specialChar = ["!","#","$","%","&","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","^","{","|","}","~"];
 var numChar = ["1","2","3","4","5","6","7","8","9","0"];
 var upCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var upperCase = upCase.split();
+var upperCase = upCase.split("");
 var lowCase = "abcdefghijklmnopqrstuvwxyz"
-var lowerCase = lowCase.split();
+var lowerCase = lowCase.split("");
 
 function generatePassword() {
   // ! WHEN prompted for the length of the password
@@ -15,6 +15,8 @@ function generatePassword() {
   console.log(typeof parseInt(length))
   if (length < 8 || length > 128) {
     alert("Password length must be at least 8 characters and a max of 128 characters.");
+    // Restart process if parameters not met
+    writePassword();
   }
   // ! WHEN asked for character types to include in the password
   // * THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
@@ -26,11 +28,27 @@ function generatePassword() {
   // * THEN my input should be validated and at least one character type should be selected
   if (!yesCap && !noCap && !nums && !symb) {
     alert("Please restart and select charachters to include.");
+    // Restart process if parameters not met
+    writePassword();
   }
   // ! WHEN all prompts are answered
-  // * THEN a password is generated that matches the selected criteria
+  // Object stores criteria
+   var passCriteria = {
+    passLeng: length,
+    spChar: symb,
+    caps: yesCap,
+    lower: noCap,
+    digits: nums
+  }
+  console.log(passCriteria.passLeng);
+  console.log(passCriteria.spChar);
+  console.log(passCriteria.caps);
+  console.log(passCriteria.lower);
+  console.log(passCriteria.digits);
 
-  return "yay password"
+
+
+  return "almost"
 };
 
 
