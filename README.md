@@ -8,4 +8,4 @@ I can see this being applied to my ideal work environment as a music educator to
 https://cah4758.github.io/password-generator/
 [Deployed App Link]
 
-![App Screenshot](/img/password-generator.png)
+![App Screenshot](img/password-generator.png)
