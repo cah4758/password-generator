@@ -6,11 +6,10 @@ var upCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var upperCase = upCase.split("");
 var lowCase = "abcdefghijklmnopqrstuvwxyz"
 var lowerCase = lowCase.split("");
+// var passCharacters = [specialChar[i], numChar[i], upperCase[i], lowerCase[i]];
 
 function generatePassword() {
-  // ! WHEN prompted for the length of the password
   var length = prompt("Enter password length between 8 and 128.")
-  // * THEN I choose a length of at least 8 characters and no more than 128 characters
   console.log(parseInt(length))
   console.log(typeof parseInt(length))
   if (length < 8 || length > 128) {
@@ -18,20 +17,19 @@ function generatePassword() {
     // Restart process if parameters not met
     writePassword();
   }
-  // ! WHEN asked for character types to include in the password
-  // * THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
+  // Gather additional criteria for password
   var yesCap = confirm("Include UPPER CASE letters?")
   var noCap = confirm("Include lower case letters?")
   var nums = confirm("Include numbers?")
   var symb = confirm("Include special characters?")
-  // ! WHEN I answer each prompt
-  // * THEN my input should be validated and at least one character type should be selected
+  
+  // check for at least one character selection
   if (!yesCap && !noCap && !nums && !symb) {
     alert("Please restart and select charachters to include.");
     // Restart process if parameters not met
     writePassword();
   }
-  // ! WHEN all prompts are answered
+
   // Object stores criteria
    var passCriteria = {
     passLeng: length,
@@ -46,9 +44,44 @@ function generatePassword() {
   console.log(passCriteria.lower);
   console.log(passCriteria.digits);
 
+var genPwd = [];
+
+if (passCriteria.spChar){
+  genPwd.concat(specialChar);
+  console.log("yes special characters");
+} 
+if (passCriteria.caps){
+  genPwd.concat(upperCase);
+  console.log("yes caps");
+} 
+if (passCriteria.lower){
+  genPwd.concat(lowerCase);
+  console.log("yes nocaps");
+}
+if (passCriteria.digits){
+  genPwd.concat(numChar);
+  console.log("yes digits");
+}
+console.log(genPwd);
 
 
-  return "almost"
+
+
+
+
+  // var i = Math.floor(Math.random() * passCriteria.passLeng);
+  // console.log(i);
+  // var n = 0
+  // for (n = 0; n<= passCriteria.passLeng; n++) {
+  //   genPwd[i].toString(n);
+  // }
+    
+  
+  
+
+
+
+  return password
 };
 
 
@@ -56,12 +89,11 @@ function generatePassword() {
 function writePassword() {
 
   var password = generatePassword();
-  // ! WHEN the password is generated
-  // * THEN the password is either displayed in an alert or written to the page
+  // Password displayed in text area above generate button
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
-// Add event listener to generate button
+// Button begins password generationgit 
 generateBtn.addEventListener("click", writePassword);
