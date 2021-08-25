@@ -1,12 +1,11 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+// Character arrays for selection later
 var specialChar = ["!","#","$","%","&","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","^","{","|","}","~"];
 var numChar = ["1","2","3","4","5","6","7","8","9","0"];
-var upCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var upperCase = upCase.split("");
-var lowCase = "abcdefghijklmnopqrstuvwxyz"
-var lowerCase = lowCase.split("");
-// var passCharacters = [specialChar[i], numChar[i], upperCase[i], lowerCase[i]];
+var upCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var lowCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
 
 function generatePassword() {
   var length = prompt("Enter password length between 8 and 128.")
@@ -44,44 +43,62 @@ function generatePassword() {
   console.log(passCriteria.lower);
   console.log(passCriteria.digits);
 
-var genPwd = [];
+  //empty array to concatenate requested characters
+  var genPwd = [];
+  //completed password
+  var finalPwd = [];
+  //at least one of requested characters
+  var ranPwd = [];
 
-if (passCriteria.spChar){
-  genPwd.concat(specialChar);
-  console.log("yes special characters");
-} 
-if (passCriteria.caps){
-  genPwd.concat(upperCase);
-  console.log("yes caps");
-} 
-if (passCriteria.lower){
-  genPwd.concat(lowerCase);
-  console.log("yes nocaps");
-}
-if (passCriteria.digits){
-  genPwd.concat(numChar);
-  console.log("yes digits");
-}
-console.log(genPwd);
+  // genPwd array concatenates entirety of true arrays
+  // ranPwd.push adds random character of specific array to at least have what was requested
+  if (passCriteria.spChar){
+    genPwd = genPwd.concat(specialChar);
+    console.log("yes special characters");
+    ranPwd.push(generateRandom(specialChar));
+  } 
+  if (passCriteria.caps){
+    genPwd = genPwd.concat(upCase);
+    console.log("yes caps");
+    ranPwd.push(generateRandom(upCase));
+  } 
+  if (passCriteria.lower){
+    genPwd = genPwd.concat(lowCase);
+    console.log("yes nocaps");
+    ranPwd.push(generateRandom(lowCase));
+  }
+  if (passCriteria.digits){
+    genPwd = genPwd.concat(numChar);
+    console.log("yes digits");
+    ranPwd.push(generateRandom(numChar));
+  }
+  // Logging out the now-filled-in arrays
+  console.log(genPwd);
+  console.log(ranPwd);
+
+  // Chooses and pushes random items of genPwd array into finalPwd
+  for (let n = 0; n<= passCriteria.passLeng; n++) {
+      finalPwd.push(generateRandom(genPwd));
+    }
+  console.log(finalPwd);
+
+  // finalPwd.join("") brings together as a string
+  console.log(finalPwd.join(""));
+
+  // Switches out first items of finalPwd with ranPwd to ensure we have all requested characters
+  for (let index = 0; index < ranPwd.length; index++) {
+    finalPwd[index] = ranPwd[index];
+  }
+  console.log(finalPwd.join(""));
+
+  // arr inside for more responsiveness - able to use different arrays
+  function generateRandom(arr) {
+    var randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+  }
 
 
-
-
-
-
-  // var i = Math.floor(Math.random() * passCriteria.passLeng);
-  // console.log(i);
-  // var n = 0
-  // for (n = 0; n<= passCriteria.passLeng; n++) {
-  //   genPwd[i].toString(n);
-  // }
-    
-  
-  
-
-
-
-  return password
+    return finalPwd.join("");
 };
 
 
@@ -92,7 +109,7 @@ function writePassword() {
   // Password displayed in text area above generate button
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.textContent = password;
 
 }
 // Button begins password generationgit 
